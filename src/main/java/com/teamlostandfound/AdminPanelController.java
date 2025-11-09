@@ -71,6 +71,7 @@ public class AdminPanelController {
         if (selected != null) {
             System.out.println("Edit item: " + selected);
             // TODO: Implement edit functionality
+            
         }
     }
 

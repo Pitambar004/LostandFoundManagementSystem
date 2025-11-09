@@ -56,7 +56,9 @@
             </rowConstraints>
             </GridPane>
 
-            <Button fx:id="submitBtn" style="-fx-background-color: #0078D7; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 30 8 30; -fx-background-radius: 6;" text="Submit Lost Item" />
+            <Button fx:id="submitBtn" 
+                    onAction = "#handleLostItemSubmission" 
+                    style="-fx-background-color: #0078D7; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 30 8 30; -fx-background-radius: 6;" text="Submit Lost Item" />
         </VBox>
     </center>
 
