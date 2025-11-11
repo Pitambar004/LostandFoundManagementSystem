@@ -1,5 +1,10 @@
 package com.teamlostandfound;
 
+import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -7,20 +12,24 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class AdminPanelController {
 
-    @FXML
-    private TableColumn<?, ?> actionsCol;
+    private ItemDao itemDao = new ItemDao();
+    private ObservableList<Item> items = FXCollections.observableArrayList();
 
     @FXML
-    private TableView<?> adminTable;
+    private TableColumn<Item, String> actionsCol;
 
     @FXML
-    private TableColumn<?, ?> categoryCol;
+    private TableView<Item> adminTable;
 
     @FXML
-    private TableColumn<?, ?> dateCol;
+    private TableColumn<Item, String> categoryCol;
+
+    @FXML
+    private TableColumn<Item, String> dateCol;
 
     @FXML
     private Button deleteBtn;
@@ -32,19 +41,22 @@ public class AdminPanelController {
     private Button homeBtn;
 
     @FXML
-    private TableColumn<?, ?> locationCol;
+    private TableColumn<Item, String> locationCol;
 
     @FXML
-    private TableColumn<?, ?> nameCol;
+    private TableColumn<Item, String> nameCol;
 
     @FXML
     private TextField searchField;
 
     @FXML
-    private TableColumn<?, ?> statusCol;
+    private Button searchBtn;
 
     @FXML
-    private ComboBox<?> statusFilter;
+    private TableColumn<Item, String> statusCol;
+
+    @FXML
+    private ComboBox<String> categoryFilter;
 
     @FXML
     void goHome(ActionEvent event) {
@@ -53,34 +65,77 @@ public class AdminPanelController {
 
     @FXML
     private void initialize() {
-        // Start with buttons disabled
-        editBtn.setDisable(true);
-        deleteBtn.setDisable(true);
-
-        // Enable buttons when a row is selected
-        adminTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            boolean hasSelection = (newSelection != null);
-            editBtn.setDisable(!hasSelection);
-            deleteBtn.setDisable(!hasSelection);
+        setupTableColumns();
+        setupCategoryFilter();
+        setupButtons();
+        loadItemsFromDatabase();
+    }
+    
+    private void setupTableColumns() {
+        adminTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        categoryCol.setCellValueFactory(new PropertyValueFactory<>("category"));
+        locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+        statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+        
+        dateCol.setCellValueFactory(cellData -> {
+            Item item = cellData.getValue();
+            if (item.getDate() != null) {
+                String formattedDate = item.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                return new javafx.beans.property.SimpleStringProperty(formattedDate);
+            }
+            return new javafx.beans.property.SimpleStringProperty("");
         });
+        
+        actionsCol.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(""));
+    }
+    
+    private void setupCategoryFilter() {
+        categoryFilter.getItems().addAll(
+            "All Categories",
+            "Electronics",
+            "Clothing",
+            "Books or Documents",
+            "Accessories",
+            "Others"
+        );
+        categoryFilter.setValue("All Categories");
+    }
+    
+    private void setupButtons() {
+        editBtn.setDisable(false);
+        deleteBtn.setDisable(false);
+    }
+    
+    private void loadItemsFromDatabase() {
+        try {
+            items.clear();
+            List<Item> allItems = itemDao.getAllItems();
+            items.addAll(allItems);
+            adminTable.setItems(items);
+        } catch (SQLException e) {
+            App.showAlert("Error loading items: " + e.getMessage());
+        }
     }
 
     @FXML
     void onEdit(ActionEvent event) {
-        Object selected = adminTable.getSelectionModel().getSelectedItem();
+        Item selected = adminTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
             System.out.println("Edit item: " + selected);
-            // TODO: Implement edit functionality
-            
         }
     }
 
     @FXML
     void onDelete(ActionEvent event) {
-        Object selected = adminTable.getSelectionModel().getSelectedItem();
+        Item selected = adminTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
             System.out.println("Delete item: " + selected);
-            // TODO: Implement delete functionality
         }
+    }
+
+    @FXML
+    void onSearch(ActionEvent event) {
     }
 }

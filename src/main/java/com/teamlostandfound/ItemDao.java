@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,27 @@ public class ItemDao {
 			}
 		}
 		return names;
+	}
+
+	public List<Item> getAllItems() throws SQLException {
+		String sql = "SELECT id, name, category, location, date, description, status FROM items ORDER BY id DESC";
+		List<Item> items = new ArrayList<>();
+		try (Connection connection = Database.getConnection(); 
+			 PreparedStatement ps = connection.prepareStatement(sql); 
+			 ResultSet rs = ps.executeQuery()) {
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+				String category = rs.getString("category");
+				String location = rs.getString("location");
+				java.sql.Date sqlDate = rs.getDate("date");
+				LocalDate date = sqlDate != null ? sqlDate.toLocalDate() : null;
+				String description = rs.getString("description");
+				String status = rs.getString("status");
+				items.add(new Item(id, name, category, location, date, description, status));
+			}
+		}
+		return items;
 	}
 }
 

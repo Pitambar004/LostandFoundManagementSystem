@@ -4,31 +4,30 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="420" prefWidth="360" spacing="15" style="-fx-background-color: white; -fx-background-radius: 10;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teamlostandfound.LoginPanelController">
+<BorderPane minHeight="400.0" minWidth="350.0" prefHeight="450.0" prefWidth="400.0" stylesheets="@/styles.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teamlostandfound.LoginPanelController">
+    <top>
+        <AnchorPane minHeight="50.0" prefHeight="50.0" styleClass="header-pane">
+            <Button fx:id="homeBtn" layoutX="10.0" layoutY="8.0" minHeight="30.0" minWidth="70.0" onAction="#goHome" styleClass="home-button" text="Home" />
+        </AnchorPane>
+    </top>
+    <center>
+        <VBox alignment="CENTER" spacing="15.0" styleClass="login-pane" VBox.vgrow="ALWAYS">
+            <VBox alignment="CENTER" spacing="8.0">
+                <Label styleClass="welcome-label" text="Welcome Back" />
+                <Label styleClass="subtitle-label" text="Login to your admin account" />
+            </VBox>
 
-    <!-- Top bar with Home button -->
-    <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 10;">
-        <Button fx:id="homeBtn" onAction="#goHome" prefHeight="30" prefWidth="70" style="-fx-background-color: #a8c7ff; -fx-background-radius: 8; -fx-font-weight: bold; -fx-cursor: hand;" text="Home" />
-    </HBox>
+            <VBox alignment="CENTER" spacing="20.0" style="-fx-padding: 20;">
+                <TextField fx:id="usernameField" minWidth="280.0" prefHeight="45.0" prefWidth="300.0" promptText="👤 Username" styleClass="modern-text-field" />
+                <PasswordField fx:id="passwordField" minWidth="280.0" prefHeight="45.0" prefWidth="300.0" promptText="🔒 Password" styleClass="modern-password-field" />
 
-    <!-- Header section -->
-    <VBox alignment="CENTER" prefHeight="100" spacing="5">
-        <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Welcome Back" />
-        <Label style="-fx-font-size: 14px; -fx-text-fill: #555;" text="Login to your account" />
-    </VBox>
-
-    <!-- Login Form -->
-    <VBox alignment="CENTER" spacing="10" style="-fx-padding: 20;">
-        <TextField fx:id="usernameField" prefHeight="35" prefWidth="250" promptText="Username" style="-fx-background-radius: 6;" />
-        <PasswordField fx:id="passwordField" prefHeight="35" prefWidth="250" promptText="Password" style="-fx-background-radius: 6;" />
-
-        <Button fx:id="loginBtn" onAction="#handleLogin" prefHeight="35" prefWidth="250" style="-fx-background-color: #4a90e2; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6;" text="Login" />
-    </VBox>
-
-    <!-- Footer -->
-    <HBox alignment="CENTER" />
-
-</VBox>
+                <Button fx:id="loginBtn" minWidth="280.0" onAction="#handleLogin" prefHeight="45.0" prefWidth="300.0" styleClass="primary-button" text="Login" />
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

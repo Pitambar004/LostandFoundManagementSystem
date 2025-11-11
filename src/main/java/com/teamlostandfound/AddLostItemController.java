@@ -50,6 +50,13 @@ public class AddLostItemController {
             "Accessories",
             "Others"
         );
+        
+        datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && newValue.isAfter(LocalDate.now())) {
+                App.showAlert("Not allowed future date");
+                datePicker.setValue(null);
+            }
+        });
     }
 
     @FXML
@@ -80,9 +87,10 @@ public class AddLostItemController {
         LocalDate currentDate = LocalDate.now();
 
         if (dateLost.isAfter(currentDate)) {
-                App.showAlert("Date for lost Item cannot be in the future.");
-                return;
-            }
+            App.showAlert("Not allowed future date");
+            datePicker.setValue(null);
+            return;
+        }
 
         try (Connection conn = Database.getConnection();
             PreparedStatement stmt = conn.prepareStatement(

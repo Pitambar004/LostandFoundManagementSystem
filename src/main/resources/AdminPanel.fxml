@@ -5,45 +5,37 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teamlostandfound.AdminPanelController"
-             prefWidth="950.0" prefHeight="600.0" style="-fx-background-color: #f5f7fa;">
+<BorderPane minHeight="550.0" minWidth="850.0" prefHeight="600.0" prefWidth="900.0" stylesheets="@/styles.css" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teamlostandfound.AdminPanelController">
 
     <top>
-        <AnchorPane style="-fx-background-color: #dce8ff; -fx-padding: 15;">
-        <Button fx:id="homeBtn" text="Home" onAction="#goHome" layoutX="10" layoutY="8" prefWidth="70" prefHeight="30"
-                style="-fx-background-color: #a8c7ff; -fx-background-radius: 8; -fx-font-weight: bold; -fx-cursor: hand;"/>
-    
-            <Label text="Admin Control Panel"
-                   layoutX="340" layoutY="5"
-                   style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        <AnchorPane minHeight="50.0" prefHeight="50.0" styleClass="header-pane">
+            <Label alignment="CENTER" layoutX="0.0" layoutY="5.0" styleClass="header-label" text="Admin Control Panel" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" mouseTransparent="true" />
+            <Button fx:id="homeBtn" layoutX="10.0" layoutY="8.0" minHeight="30.0" minWidth="70.0" onAction="#goHome" styleClass="home-button" text="Home" />
         </AnchorPane>
     </top>
 
     <center>
-        <VBox spacing="15" alignment="TOP_CENTER" style="-fx-padding: 20;">
-            <HBox spacing="10" alignment="CENTER_LEFT">
-                <TextField fx:id="searchField" promptText="Search..."
-                           style="-fx-pref-width: 300; -fx-padding: 5;"/>
-                <ComboBox fx:id="statusFilter" promptText="All Status"
-                          style="-fx-pref-width: 150;"/>
+        <VBox spacing="12.0" alignment="TOP_CENTER" styleClass="content-pane" VBox.vgrow="ALWAYS">
+            <HBox spacing="15.0" alignment="CENTER_LEFT" styleClass="search-container">
+                <TextField fx:id="searchField" minWidth="200.0" prefWidth="300.0" promptText="🔍 Search items..." styleClass="modern-text-field" HBox.hgrow="ALWAYS" />
+                <Button fx:id="searchBtn" minHeight="35.0" minWidth="40.0" onAction="#onSearch" prefHeight="35.0" prefWidth="40.0" styleClass="search-button" text="🔍" />
+                <ComboBox fx:id="categoryFilter" minWidth="130.0" prefWidth="150.0" promptText="All Categories" styleClass="modern-combo-box" />
             </HBox>
 
-            <TableView fx:id="adminTable" prefHeight="400" prefWidth="800">
+            <TableView fx:id="adminTable" prefHeight="350.0" prefWidth="750.0" styleClass="modern-table-view" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
                 <columns>
-                    <TableColumn fx:id="nameCol" text="Name" prefWidth="140"/>
-                    <TableColumn fx:id="categoryCol" text="Category" prefWidth="140"/>
-                    <TableColumn fx:id="locationCol" text="Location" prefWidth="140"/>
-                    <TableColumn fx:id="statusCol" text="Status" prefWidth="140"/>
-                    <TableColumn fx:id="dateCol" text="Date" prefWidth="120"/>
-                    <TableColumn fx:id="actionsCol" text="Actions" prefWidth="120"/>
+                    <TableColumn fx:id="nameCol" minWidth="100.0" prefWidth="130.0" text="Item Name" />
+                    <TableColumn fx:id="categoryCol" minWidth="80.0" prefWidth="110.0" text="Category" />
+                    <TableColumn fx:id="locationCol" minWidth="100.0" prefWidth="130.0" text="Location" />
+                    <TableColumn fx:id="statusCol" minWidth="80.0" prefWidth="110.0" text="Status" />
+                    <TableColumn fx:id="dateCol" minWidth="80.0" prefWidth="110.0" text="Date" />
+                    <TableColumn fx:id="actionsCol" minWidth="80.0" prefWidth="120.0" text="Actions" />
                 </columns>
             </TableView>
 
-            <HBox spacing="20" alignment="CENTER">
-                <Button fx:id="editBtn" text="Edit" onAction="#onEdit"
-                        style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20 8 20; -fx-background-radius: 6;"/>
-                <Button fx:id="deleteBtn" text="Delete" onAction="#onDelete"
-                        style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20 8 20; -fx-background-radius: 6;"/>
+            <HBox spacing="20.0" alignment="CENTER">
+                <Button fx:id="editBtn" minWidth="120.0" onAction="#onEdit" prefHeight="40.0" prefWidth="150.0" styleClass="normal-button" text="✏️ Edit" />
+                <Button fx:id="deleteBtn" minWidth="120.0" onAction="#onDelete" prefHeight="40.0" prefWidth="150.0" styleClass="normal-button" text="🗑️ Delete" />
             </HBox>
         </VBox>
     </center>

@@ -13,50 +13,45 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.teamlostandfound.AddFoundItemController"
-             prefWidth="800.0" prefHeight="500.0" style="-fx-background-color: #f5f7fa;">
+<BorderPane minHeight="550.0" minWidth="850.0" prefHeight="600.0" prefWidth="900.0" stylesheets="@/styles.css" xmlns:fx="http://javafx.com/fxml" fx:controller="com.teamlostandfound.AddFoundItemController">
 
     <top>
-        <AnchorPane style="-fx-background-color: #dce8ff; -fx-padding: 15;">
-        <Button fx:id="homeBtn" text="Home" layoutX="10" layoutY="8" prefWidth="70" prefHeight="30"
-                onAction="#goHome"
-                style="-fx-background-color: #a8c7ff; -fx-background-radius: 8; -fx-font-weight: bold; -fx-cursor: hand;"/>
-    
-            <Label text="Report Found Item"
-                   layoutX="300" layoutY="5"
-                   style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        <AnchorPane minHeight="50.0" prefHeight="50.0" styleClass="header-pane">
+            <Label alignment="CENTER" layoutX="0.0" layoutY="5.0" styleClass="header-label" text="Report Found Item" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" mouseTransparent="true" />
+            <Button fx:id="homeBtn" layoutX="10.0" layoutY="8.0" minHeight="30.0" minWidth="70.0" onAction="#goHome" styleClass="home-button" text="Home" />
         </AnchorPane>
     </top>
 
     <center>
-        <VBox spacing="15" alignment="TOP_CENTER" style="-fx-padding: 30;">
-            <GridPane hgap="15" vgap="15">
+        <VBox alignment="TOP_CENTER" spacing="15.0" styleClass="form-pane">
+            <Label styleClass="section-label" text="Found Item Details" />
+            <GridPane hgap="20.0" styleClass="modern-grid-pane" vgap="20.0">
                 <columnConstraints>
-                    <ColumnConstraints halignment="RIGHT" prefWidth="150"/>
-                    <ColumnConstraints halignment="LEFT" prefWidth="250"/>
+                    <ColumnConstraints halignment="RIGHT" minWidth="150.0" prefWidth="180.0" />
+                    <ColumnConstraints halignment="LEFT" minWidth="250.0" prefWidth="400.0" />
                 </columnConstraints>
-
+                <rowConstraints>
+                    <RowConstraints minHeight="40.0" prefHeight="40.0" />
+                    <RowConstraints minHeight="40.0" prefHeight="40.0" />
+                    <RowConstraints minHeight="40.0" prefHeight="40.0" />
+                    <RowConstraints minHeight="40.0" prefHeight="40.0" />
+                    <RowConstraints minHeight="100.0" prefHeight="120.0" />
+                </rowConstraints>
                 <children>
-                    <Label text="Item Name:"/>
-                    <TextField fx:id="itemNameField" GridPane.columnIndex="1"/>
-
-                    <Label text="Category:" GridPane.rowIndex="1"/>
-                    <ComboBox fx:id="categoryBox" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-
-                    <Label text="Location Found:" GridPane.rowIndex="2"/>
-                    <TextField fx:id="locationField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-
-                    <Label text="Date Found:" GridPane.rowIndex="3"/>
-                    <DatePicker fx:id="datePicker" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-
-                    <Label text="Description:" GridPane.rowIndex="4"/>
-                    <TextArea fx:id="descriptionArea" prefRowCount="4" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                    <Label styleClass="form-label" text="Item Name:" />
+                    <TextField fx:id="itemNameField" GridPane.columnIndex="1" styleClass="modern-text-field" />
+                    <Label styleClass="form-label" text="Category:" GridPane.rowIndex="1" />
+                    <ComboBox fx:id="categoryBox" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="modern-combo-box" />
+                    <Label styleClass="form-label" text="Location Found:" GridPane.rowIndex="2" />
+                    <TextField fx:id="locationField" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="modern-text-field" />
+                    <Label styleClass="form-label" text="Date Found:" GridPane.rowIndex="3" />
+                    <DatePicker fx:id="datePicker" GridPane.columnIndex="1" GridPane.rowIndex="3" styleClass="modern-date-picker" />
+                    <Label styleClass="form-label" text="Description:" GridPane.rowIndex="4" />
+                    <TextArea fx:id="descriptionArea" prefRowCount="4" GridPane.columnIndex="1" GridPane.rowIndex="4" styleClass="modern-text-area" />
                 </children>
             </GridPane>
 
-            <Button fx:id="submitBtn" text="Submit Found Item"
-                    onAction="#handleFoundItemSubmission"
-                    style="-fx-background-color: #0078D7; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 30 8 30; -fx-background-radius: 6;"/>
+            <Button fx:id="submitBtn" minWidth="200.0" onAction="#handleFoundItemSubmission" prefHeight="40.0" prefWidth="250.0" styleClass="primary-button" text="✅ Submit Found Item" />
         </VBox>
     </center>
 

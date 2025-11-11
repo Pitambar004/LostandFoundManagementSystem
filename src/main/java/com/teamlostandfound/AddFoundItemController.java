@@ -49,7 +49,14 @@ public class AddFoundItemController {
             "Books or Documents",
             "Accessories",
             "Others"
-        );  
+        );
+        
+        datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && newValue.isAfter(LocalDate.now())) {
+                App.showAlert("Not allowed future date");
+                datePicker.setValue(null);
+            }
+        });
     }
 
     @FXML
@@ -72,13 +79,15 @@ public class AddFoundItemController {
 
         if (datePicker.getValue() == null) {
             App.showAlert("Please select a date.");
+            return;
         }
 
         LocalDate dateFound = datePicker.getValue();
         LocalDate currentDate = LocalDate.now();
 
         if (dateFound.isAfter(currentDate)) {
-            App.showAlert("The date for found item cannot be in the future.");
+            App.showAlert("Not allowed future date");
+            datePicker.setValue(null);
             return;
         }
 
