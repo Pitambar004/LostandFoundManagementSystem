@@ -29,6 +29,8 @@
                     <TableColumn fx:id="locationCol" minWidth="100.0" prefWidth="130.0" text="Location" />
                     <TableColumn fx:id="statusCol" minWidth="80.0" prefWidth="110.0" text="Status" />
                     <TableColumn fx:id="dateCol" minWidth="80.0" prefWidth="110.0" text="Date" />
+                    <TableColumn fx:id="contactNameCol" minWidth="100.0" prefWidth="130.0" text="Contact Name" />
+                    <TableColumn fx:id="contactPhoneCol" minWidth="100.0" prefWidth="130.0" text="Phone Number" />
                     <TableColumn fx:id="actionsCol" minWidth="80.0" prefWidth="120.0" text="Actions" />
                 </columns>
             </TableView>

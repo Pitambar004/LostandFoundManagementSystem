@@ -378,6 +378,7 @@
     -fx-font-size: 12px;
     -fx-font-weight: bold;
     -fx-text-fill: #555;
+    -fx-padding: 4px 0px;
 }
 
 .welcome-label {
@@ -462,5 +463,14 @@
 
 .scroll-bar:horizontal .thumb:hover {
     -fx-background-color: #005a9e;
+}
+
+.contact-notice {
+    -fx-font-size: 10px;
+    -fx-text-fill: #666;
+    -fx-font-style: italic;
+    -fx-padding: 10px;
+    -fx-alignment: center;
+    -fx-wrap-text: true;
 }
 

@@ -56,6 +56,12 @@ public class AdminPanelController {
     private TableColumn<Item, String> statusCol;
 
     @FXML
+    private TableColumn<Item, String> contactNameCol;
+
+    @FXML
+    private TableColumn<Item, String> contactPhoneCol;
+
+    @FXML
     private ComboBox<String> categoryFilter;
 
     @FXML
@@ -68,6 +74,7 @@ public class AdminPanelController {
         setupTableColumns();
         setupCategoryFilter();
         setupButtons();
+        setupTableSelectionListener();
         loadItemsFromDatabase();
     }
     
@@ -78,6 +85,8 @@ public class AdminPanelController {
         categoryCol.setCellValueFactory(new PropertyValueFactory<>("category"));
         locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
         statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+        contactNameCol.setCellValueFactory(new PropertyValueFactory<>("contactName"));
+        contactPhoneCol.setCellValueFactory(new PropertyValueFactory<>("contactPhone"));
         
         dateCol.setCellValueFactory(cellData -> {
             Item item = cellData.getValue();
@@ -89,6 +98,19 @@ public class AdminPanelController {
         });
         
         actionsCol.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(""));
+    }
+    
+    private void setupTableSelectionListener() {
+        // Disable buttons initially
+        editBtn.setDisable(true);
+        deleteBtn.setDisable(true);
+        
+        // Enable/disable buttons based on selection
+        adminTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            boolean hasSelection = newValue != null;
+            editBtn.setDisable(!hasSelection);
+            deleteBtn.setDisable(!hasSelection);
+        });
     }
     
     private void setupCategoryFilter() {
@@ -104,8 +126,7 @@ public class AdminPanelController {
     }
     
     private void setupButtons() {
-        editBtn.setDisable(false);
-        deleteBtn.setDisable(false);
+        // Buttons will be enabled/disabled by selection listener
     }
     
     private void loadItemsFromDatabase() {

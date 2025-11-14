@@ -16,6 +16,8 @@ public class Item {
     private final ObjectProperty<LocalDate> date;
     private final StringProperty description;
     private final StringProperty status;
+    private final StringProperty contactName;
+    private final StringProperty contactPhone;
 
     public Item() {
         this.id = new SimpleIntegerProperty();
@@ -25,6 +27,8 @@ public class Item {
         this.date = new SimpleObjectProperty<>();
         this.description = new SimpleStringProperty();
         this.status = new SimpleStringProperty();
+        this.contactName = new SimpleStringProperty();
+        this.contactPhone = new SimpleStringProperty();
     }
 
     public Item(int id, String name, String category, String location, LocalDate date, String description, String status) {
@@ -35,6 +39,20 @@ public class Item {
         this.date = new SimpleObjectProperty<>(date);
         this.description = new SimpleStringProperty(description);
         this.status = new SimpleStringProperty(status);
+        this.contactName = new SimpleStringProperty();
+        this.contactPhone = new SimpleStringProperty();
+    }
+
+    public Item(int id, String name, String category, String location, LocalDate date, String description, String status, String contactName, String contactPhone) {
+        this.id = new SimpleIntegerProperty(id);
+        this.name = new SimpleStringProperty(name);
+        this.category = new SimpleStringProperty(category);
+        this.location = new SimpleStringProperty(location);
+        this.date = new SimpleObjectProperty<>(date);
+        this.description = new SimpleStringProperty(description);
+        this.status = new SimpleStringProperty(status);
+        this.contactName = new SimpleStringProperty(contactName != null ? contactName : "");
+        this.contactPhone = new SimpleStringProperty(contactPhone != null ? contactPhone : "");
     }
 
     public int getId() {
@@ -119,6 +137,30 @@ public class Item {
 
     public StringProperty statusProperty() {
         return status;
+    }
+
+    public String getContactName() {
+        return contactName.get();
+    }
+
+    public void setContactName(String contactName) {
+        this.contactName.set(contactName);
+    }
+
+    public StringProperty contactNameProperty() {
+        return contactName;
+    }
+
+    public String getContactPhone() {
+        return contactPhone.get();
+    }
+
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone.set(contactPhone);
+    }
+
+    public StringProperty contactPhoneProperty() {
+        return contactPhone;
     }
 }
 

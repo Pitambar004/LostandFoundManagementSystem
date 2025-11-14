@@ -35,7 +35,7 @@ public class ItemDao {
 	}
 
 	public List<Item> getAllItems() throws SQLException {
-		String sql = "SELECT id, name, category, location, date, description, status FROM items ORDER BY id DESC";
+		String sql = "SELECT id, name, category, location, date, description, status, contact_name, contact_phone FROM items ORDER BY id DESC";
 		List<Item> items = new ArrayList<>();
 		try (Connection connection = Database.getConnection(); 
 			 PreparedStatement ps = connection.prepareStatement(sql); 
@@ -49,7 +49,9 @@ public class ItemDao {
 				LocalDate date = sqlDate != null ? sqlDate.toLocalDate() : null;
 				String description = rs.getString("description");
 				String status = rs.getString("status");
-				items.add(new Item(id, name, category, location, date, description, status));
+				String contactName = rs.getString("contact_name");
+				String contactPhone = rs.getString("contact_phone");
+				items.add(new Item(id, name, category, location, date, description, status, contactName, contactPhone));
 			}
 		}
 		return items;

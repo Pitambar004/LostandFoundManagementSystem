@@ -49,6 +49,8 @@
                 </columns>
             </TableView>
 
+            <Label alignment="CENTER" styleClass="contact-notice" text="If you think the above item is yours or if you know the owner, contact admin at gmail: **********@gmail.com ph.no: 920-***-****" wrapText="true" />
+
         </VBox>
     </center>
 

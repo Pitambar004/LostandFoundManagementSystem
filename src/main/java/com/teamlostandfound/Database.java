@@ -54,8 +54,32 @@ public final class Database {
 				"location VARCHAR(100), " +
 				"date DATE, " +
 				"description TEXT, " +
-				"status VARCHAR(20) NOT NULL DEFAULT 'FOUND'" +
+				"status VARCHAR(20) NOT NULL DEFAULT 'FOUND', " +
+				"contact_name VARCHAR(100), " +
+				"contact_phone VARCHAR(10)" +
 				")");
+			
+			// Add new columns if they don't exist (for existing databases)
+			try {
+				java.sql.DatabaseMetaData metaData = connection.getMetaData();
+				java.sql.ResultSet columns = metaData.getColumns(null, null, "items", "contact_name");
+				if (!columns.next()) {
+					statement.executeUpdate("ALTER TABLE items ADD COLUMN contact_name VARCHAR(100)");
+				}
+				columns.close();
+			} catch (SQLException e) {
+				// Column might already exist, ignore
+			}
+			try {
+				java.sql.DatabaseMetaData metaData = connection.getMetaData();
+				java.sql.ResultSet columns = metaData.getColumns(null, null, "items", "contact_phone");
+				if (!columns.next()) {
+					statement.executeUpdate("ALTER TABLE items ADD COLUMN contact_phone VARCHAR(10)");
+				}
+				columns.close();
+			} catch (SQLException e) {
+				// Column might already exist, ignore
+			}
 		}
 	}
 }
